@@ -1,5 +1,8 @@
 This UI library is a custom, lightweight vanilla JavaScript library that focuses on providing a simple set of custom UI components that can be created and added to a webpage using JavaScript. It includes classes for various types of elements, such as menus, submenus, menu items, buttons, labels, inputs, and separators. The classes are designed to be easily customizable and extensible. 
 
+Demo with default css:
+![image](demo)
+
 ### Here's a brief description of each class:
 
 UIElement: This is the base class for all other UI elements, handling the creation of DOM elements and applying attributes and event handlers.
@@ -30,4 +33,3 @@ UIInput: A class representing an input element. It extends UIElement and creates
 
 ### Summary
 In summary, this UI library is suitable for developers looking for a simple, lightweight, and extensible solution for creating basic UI components. If a more comprehensive set of components and features is required, other popular UI frameworks like Bootstrap, Material-UI, or Ant Design might be more suitable.
-![image](https://user-images.githubusercontent.com/25754141/228089623-db49cfac-3f37-4791-9dcd-9076cd840a27.png)
