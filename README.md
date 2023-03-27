@@ -6,15 +6,15 @@ UIElement: This is the base class for all other UI elements, handling the creati
 
 UIMenu: A class representing a draggable menu element. It extends UIElement and creates an unordered list ```(<ul>)``` element.
 
-UISubmenu: A class representing a submenu that appears when the user hovers over it. It extends UIElement and creates a list item (<li>) element. It also includes a title and a nested menu.
+UISubmenu: A class representing a submenu that appears when the user hovers over it. It extends UIElement and creates a list item ```(<li>)``` element. It also includes a title and a nested menu.
 
-UIMenuItem: A class representing a selectable menu item. It extends UIElement and creates a list item (<li>) element with hover, click, and selection styles.
+UIMenuItem: A class representing a selectable menu item. It extends UIElement and creates a list item ```(<li>)``` element with hover, click, and selection styles.
 
-UIButton: A class representing a button element. It extends UIElement and creates a <button> element with various mouse event styles.
+UIButton: A class representing a button element. It extends UIElement and creates a ```<button>``` element with various mouse event styles.
 
-UILabel: A class representing a label element. It extends UIElement and creates a <label> element.
+UILabel: A class representing a label element. It extends UIElement and creates a ```<label>``` element.
 
-UIInput: A class representing an input element. It extends UIElement and creates an <input> element.
+UIInput: A class representing an input element. It extends UIElement and creates an ```<input>``` element.
 
 It differs from other popular UI frameworks in several ways:
 
