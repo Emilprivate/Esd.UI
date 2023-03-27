@@ -1,6 +1,7 @@
 This UI library is a custom, lightweight vanilla JavaScript library that focuses on providing a simple set of custom UI components that can be created and added to a webpage using JavaScript. It includes classes for various types of elements, such as menus, submenus, menu items, buttons, labels, inputs, and separators. The classes are designed to be easily customizable and extensible. 
 
-Demo with default css:
+### Demo with default css:
+
 ![image](https://github.com/emil0212/ESDUI.js/blob/main/resources/demo.png)
 
 ### Here's a brief description of each class:
