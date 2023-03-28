@@ -1,5 +1,5 @@
 UI Components to add:
-- Tooltips (tooltip functionality to display additional information when users hover over UI elements)
+- Tooltips (tooltip functionality to display additional information when users hover over UI elements) (WIP)
 - Modal Dialogs (modal dialogs that can display messages, prompts, or custom content to users)
 - ProgressBar (progress bar component to visualize the completion of a task or process)
 - Slider (slider component that allows users to select a value from a continuous or discrete range)
