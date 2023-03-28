@@ -1,0 +1,45 @@
+Template:
+{
+    "type": "<UIElementType>",
+    "parent": "<ParentElement>",
+    "config": {
+        "text": "<TextContent>",
+        "attributes": {
+            "<AttributeName>": "<AttributeValue>"
+        },
+        "eventHandlers": {
+            "<EventName>": "<EventHandlerFunction>"
+        },
+        "options": [
+            {
+                "text": "<OptionText>",
+                "attributes": {
+                    "<AttributeName>": "<AttributeValue>"
+                },
+                "eventHandlers": {
+                    "<EventName>": "<EventHandlerFunction>"
+                }
+            }
+        ],
+        "tabs": [
+            {
+                "label": "<TabLabel>",
+                "content": "<TabContent>",
+                "active": <TabActiveBoolean>
+            }
+        ]
+    }
+}
+
+Example using template:
+{
+    "type": "Button",
+    "parent": "<ParentElement>",
+    "config": {
+        "text": "Submit",
+        "eventHandlers": {
+            "click": "<OnClickEventHandler>"
+        }
+    }
+}
+
