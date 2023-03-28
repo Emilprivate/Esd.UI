@@ -29,19 +29,23 @@ class UIElement
   
 class UIMenu extends UIElement 
 {
-    constructor(parent, draggable = true, isTopLevel = false) {
+    constructor(parent, draggable = true, isTopLevel = false) 
+    {
         super(parent, "ul", { class: (isTopLevel ? "top-level-menu" : "") });
-        if (draggable) {
+        if (draggable) 
+        {
             this.draggable();
         }
     }
 
-    draggable() {
+    draggable() 
+    {
         let isDragging = false;
         let offsetX = 0;
         let offsetY = 0;
     
-        const onMouseDown = (event) => {
+        const onMouseDown = (event) => 
+        {
             if (event.target !== this.element || !event.target.classList.contains("top-level-menu")) return;
         
             isDragging = true;
@@ -49,14 +53,16 @@ class UIMenu extends UIElement
             offsetY = event.clientY - this.element.getBoundingClientRect().top;
         };      
     
-        const onMouseMove = (event) => {
+        const onMouseMove = (event) => 
+        {
             if (!isDragging) return;
     
             this.element.style.left = `${event.clientX - offsetX}px`;
             this.element.style.top = `${event.clientY - offsetY}px`;
         };
     
-        const onMouseUp = () => {
+        const onMouseUp = () => 
+        {
             isDragging = false;
         };
     
@@ -64,9 +70,12 @@ class UIMenu extends UIElement
         document.addEventListener("mousemove", onMouseMove);
         document.addEventListener("mouseup", onMouseUp);
     
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (Array.from(mutation.removedNodes).includes(this.element)) {
+        const observer = new MutationObserver((mutations) => 
+        {
+            mutations.forEach((mutation) => 
+            {
+                if (Array.from(mutation.removedNodes).includes(this.element)) 
+                {
                     document.removeEventListener("mousemove", onMouseMove);
                     document.removeEventListener("mouseup", onMouseUp);
                     observer.disconnect();
@@ -293,7 +302,6 @@ class UIDropdownMenu extends UIElement
         styles.dropdownMenuStyles(this.element);
     }
 }
-
   
 class UITabs extends UIElement 
 {

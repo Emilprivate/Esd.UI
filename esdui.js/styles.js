@@ -4,6 +4,7 @@ export const commonStyles = (element) => {
     element.style.marginLeft = 'auto';
     element.style.marginRight = 'auto';
     element.style.textAlign = 'center';
+    element.style.whiteSpace = "nowrap";
 };
 
 export const menuStyles = (element) => {
@@ -40,7 +41,6 @@ export const buttonStyles = (element) => {
     element.style.border = "1px solid #ccc";
     element.style.borderRadius = "4px";
     element.style.color = "#333";
-    element.style.whiteSpace = "nowrap";
 };
 
 export const labelStyles = (element) => {
@@ -69,7 +69,6 @@ export const dropdownMenuStyles = (element) => {
     element.style.backgroundColor = "#f0f0f0";
     element.style.border = "1px solid #d0d0d0";
     element.style.borderRadius = "5px";
-    element.style.whiteSpace = "nowrap";
 };
 
 export const tabsStyles = (element) => {
@@ -78,6 +77,5 @@ export const tabsStyles = (element) => {
     element.style.border = "1px solid #ccc";
     element.style.borderRadius = "4px";
     element.style.color = "#333";
-    element.style.whiteSpace = "nowrap";
     element.style.cursor = "pointer";
 }
