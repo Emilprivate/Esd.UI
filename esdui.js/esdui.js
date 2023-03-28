@@ -29,67 +29,53 @@ class UIElement
   
 class UIMenu extends UIElement 
 {
-    constructor(parent) 
-    {
-        super(parent, 'ul');
-        this.draggable();
+    constructor(parent, draggable = true, isTopLevel = false) {
+        super(parent, "ul", { class: (isTopLevel ? "top-level-menu" : "") });
+        if (draggable) {
+            this.draggable();
+        }
     }
 
-    draggable() 
-    {
+    draggable() {
         let isDragging = false;
         let offsetX = 0;
         let offsetY = 0;
-
-        const onMouseDown = (event) => 
-        {
-        if (!this.element.contains(event.target) && 
-            event.target !== this.element || 
-            event.target.closest(".submenu"))
-            return;
+    
+        const onMouseDown = (event) => {
+            if (event.target !== this.element || !event.target.classList.contains("top-level-menu")) return;
         
             isDragging = true;
             offsetX = event.clientX - this.element.getBoundingClientRect().left;
             offsetY = event.clientY - this.element.getBoundingClientRect().top;
-        };
-        
-        const onMouseMove = (event) => 
-        {
-            if (!isDragging || 
-                event.target.closest(".submenu")) 
-                return;
-
+        };      
+    
+        const onMouseMove = (event) => {
+            if (!isDragging) return;
+    
             this.element.style.left = `${event.clientX - offsetX}px`;
             this.element.style.top = `${event.clientY - offsetY}px`;
         };
-        
-        const onMouseUp = (event) => 
-        {
-            if (event.target.closest(".submenu")) 
-                return;
-
+    
+        const onMouseUp = () => {
             isDragging = false;
         };
-
+    
         this.element.addEventListener("mousedown", onMouseDown);
-
         document.addEventListener("mousemove", onMouseMove);
         document.addEventListener("mouseup", onMouseUp);
-
-        const observer = new MutationObserver((mutations) => 
-        {
-        mutations.forEach((mutation) => {
-                if (Array.from(mutation.removedNodes).includes(this.element)) 
-                {
+    
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (Array.from(mutation.removedNodes).includes(this.element)) {
                     document.removeEventListener("mousemove", onMouseMove);
                     document.removeEventListener("mouseup", onMouseUp);
                     observer.disconnect();
                 }
             });
         });
-
+    
         observer.observe(this.parent, { childList: true });
-    }
+    }     
 
     style() 
     {
@@ -105,7 +91,7 @@ class UISubmenu extends UIElement
     {
         super(parent, "li", { ...attributes, class: "submenu" }, eventHandlers);
         this.submenuTitle = new UILabel(this.element, text);
-        this.submenuList = new UIMenu(this.element);
+        this.submenuList = new UIMenu(this.element, false);
         this.submenuList.element.style.display = "none";
         this.submenuList.element.style.position = "absolute";
         this.submenuList.element.style.left = "100%";
@@ -270,7 +256,7 @@ class UIDropdownMenu extends UIElement
         super(parent, "div", { ...attributes, class: "dropdown-menu" }, eventHandlers);
   
         this.selectedOption = null;
-        this.optionsList = new UIMenu(this.element);
+        this.optionsList = new UIMenu(this.element, false);
         this.optionsList.element.style.display = "none";
         this.optionsList.element.style.position = "absolute";
         this.optionsList.element.style.left = "0";
@@ -313,6 +299,10 @@ class UITabs extends UIElement
 {
     constructor(parent, tabs, attributes = {}, eventHandlers = {}) 
     {
+        if (!Array.isArray(tabs)) {
+            throw new Error('The tabs parameter should be an array.');
+        }
+
         super(parent, "div", { ...attributes, class: "tabs" }, eventHandlers);
 
         this.tabsList = new UIElement(this.element, "ul", { class: "tabs-list" });

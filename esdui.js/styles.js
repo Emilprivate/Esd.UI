@@ -69,6 +69,7 @@ export const dropdownMenuStyles = (element) => {
     element.style.backgroundColor = "#f0f0f0";
     element.style.border = "1px solid #d0d0d0";
     element.style.borderRadius = "5px";
+    element.style.whiteSpace = "nowrap";
 };
 
 export const tabsStyles = (element) => {

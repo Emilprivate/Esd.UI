@@ -29,7 +29,7 @@
 
         // Create the ESDUI instance
         const esdui = new ESDUI();
-        const menu = esdui.createUIElement("Menu", menuContainer);
+        const menu = esdui.createUIElement("Menu", menuContainer, true);
 
         // Create a submenu
         const submenu = esdui.createUIElement("Submenu", menu.element, { text: "Submenu" });
