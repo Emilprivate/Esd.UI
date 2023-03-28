@@ -4,7 +4,7 @@ This UI library is a custom, lightweight vanilla JavaScript library that focuses
 
 ![image](https://github.com/emil0212/ESDUI.js/blob/main/resources/demo.png)
 
-### Here's a brief description of each class:
+### Here's a brief description of some of the classes:
 
 UIElement: This is the base class for all other UI elements, handling the creation of DOM elements and applying attributes and event handlers.
 
