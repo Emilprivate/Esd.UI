@@ -79,6 +79,11 @@
             },
         ];
         const tabsElement = esdui.createUIElement("Tabs", menu.element, {tabs});
+
+        // Create a tooltip for the button (WIP)
+        const tooltipAttributes = { title: "This is a tooltip" };
+        const buttonTooltip = esdui.createUIElement("Tooltip", button.element, tooltipAttributes);
+
     </script>
 </body>
 </html>

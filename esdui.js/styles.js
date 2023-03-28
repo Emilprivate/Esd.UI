@@ -79,3 +79,4 @@ export const tabsStyles = (element) => {
     element.style.color = "#333";
     element.style.cursor = "pointer";
 }
+  

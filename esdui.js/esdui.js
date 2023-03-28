@@ -2,24 +2,23 @@ import * as styles from './styles.js';
 
 class UIElement 
 {
-    constructor(parent, elementTag, attributes = {}, eventHandlers = {}) 
-    {
-      this.parent = parent;
-      this.element = document.createElement(elementTag);
-  
-      for (const [key, value] of Object.entries(attributes)) 
-      {
-        this.element.setAttribute(key, value);
+    constructor(parent, elementTag, attributes = {}, eventHandlers = {}) {
+        this.parent = parent;
+        this.element = document.createElement(elementTag);
+    
+        for (const [key, value] of Object.entries(attributes)) {
+          this.element.setAttribute(key, value);
+        }
+    
+        for (const [event, handler] of Object.entries(eventHandlers)) {
+          if (typeof handler === 'function') {
+            this.element.addEventListener(event, handler.bind(this));
+          }
+        }
+    
+        this.parent.appendChild(this.element);
+        this.style();
       }
-  
-      for (const [event, handler] of Object.entries(eventHandlers)) 
-      {
-        this.element.addEventListener(event, handler.bind(this));
-      }
-  
-      this.parent.appendChild(this.element);
-      this.style();
-    }
   
     style() 
     {
@@ -353,6 +352,32 @@ class UITabs extends UIElement
     }
 }
 
+class UITooltip extends UIElement {
+    constructor(targetElement, attributes = {}, eventHandlers = {}) {
+      super(targetElement.parentElement, "div", attributes, eventHandlers);
+      this.targetElement = targetElement;
+      const tooltipText = attributes.title;
+  
+      this.targetElement.addEventListener("mouseenter", (event) => {
+        const tooltip = document.createElement("div");
+        tooltip.innerText = tooltipText;
+        tooltip.classList.add("tooltip");
+        this.targetElement.appendChild(tooltip);
+      });
+  
+      this.targetElement.addEventListener("mouseleave", () => {
+        const tooltip = this.targetElement.querySelector(".tooltip");
+        if (tooltip) {
+          tooltip.remove();
+        }
+      });
+    }
+  
+    style(tooltipElement) {
+      super.style();
+    }
+  }
+
 export default class ESDUI 
 {
     createUIElement(type, parent, ...args) 
@@ -363,26 +388,28 @@ export default class ESDUI
   
       switch (type) 
       {
-        case 'Menu':
-            return new UIMenu(parent, attributes, eventHandlers);
-        case 'Submenu':
-            return new UISubmenu(parent, config.text, attributes, eventHandlers);
-        case 'MenuItem':
-            return new UIMenuItem(parent, config.text, attributes, eventHandlers);
-        case 'Button':
-            return new UIButton(parent, config.text, attributes, eventHandlers);
-        case 'Label':
-            return new UILabel(parent, config.text, attributes, eventHandlers);
-        case 'Input':
-            return new UIInput(parent, attributes, eventHandlers);
-        case 'Separator':
-            return new UISeparator(parent, attributes, eventHandlers);
-        case 'DropdownMenu':
-            return new UIDropdownMenu(parent, config.options, attributes, eventHandlers);
-        case 'Tabs':
-            return new UITabs(parent, config.tabs, attributes, eventHandlers);
+        case "Menu":
+          return new UIMenu(parent, attributes, eventHandlers);
+        case "Submenu":
+          return new UISubmenu(parent, config.text, attributes, eventHandlers);
+        case "MenuItem":
+          return new UIMenuItem(parent, config.text, attributes, eventHandlers);
+        case "Button":
+          return new UIButton(parent, config.text, attributes, eventHandlers);
+        case "Label":
+          return new UILabel(parent, config.text, attributes, eventHandlers);
+        case "Input":
+          return new UIInput(parent, attributes, eventHandlers);
+        case "Separator":
+          return new UISeparator(parent, attributes, eventHandlers);
+        case "DropdownMenu":
+          return new UIDropdownMenu(parent, config.options, attributes, eventHandlers);
+        case "Tabs":
+          return new UITabs(parent, config.tabs, attributes, eventHandlers);
+        case "Tooltip":
+            return new UITooltip(parent, attributes, eventHandlers);
         default:
-          throw new Error(`Unknown UI element type: ${type}`);
+            throw new Error(`Unknown UI element type: ${type}`);
       }
     }
   }
