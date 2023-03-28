@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESDUI Default Test</title>
+    <title>ESDUI Default</title>
     <style>
         * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         html,
         body {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
         }
     </style>
 </head>
 <body>
     <div id="menu-container"></div>
     <script type="module">
-        import ESDUI from "../esdui.js/esdui.js";
+        import ESDUI from '../esdui.js/esdui.js';
 
         // Get the menu container
         const menuContainer = document.getElementById("menu-container");
@@ -32,22 +32,22 @@
         const menu = esdui.createUIElement("Menu", menuContainer);
 
         // Create a submenu
-        const submenu = esdui.createUIElement("Submenu", menu.element, "Submenu");
-        esdui.createUIElement("MenuItem", submenu.submenuList.element, "Item 1");
-        esdui.createUIElement("MenuItem", submenu.submenuList.element, "Item 2");
+        const submenu = esdui.createUIElement("Submenu", menu.element, { text: "Submenu" });
+        esdui.createUIElement("MenuItem", submenu.submenuList.element, { text: "Item 1" });
+        esdui.createUIElement("MenuItem", submenu.submenuList.element, { text: "Item 2" });
 
         // Create a separator
         esdui.createUIElement("Separator", menu.element);
 
         // Create a menu item
-        esdui.createUIElement("MenuItem", menu.element, "Item 3");
+        esdui.createUIElement("MenuItem", menu.element, { text: "Item 3" });
 
-        // Create a submenu
-        const button = esdui.createUIElement("Button", menu.element, "Click Me");
+        // Create a button
+        const button = esdui.createUIElement("Button", menu.element, { text: "Click Me" });
         button.element.addEventListener("click", () => alert("Button clicked!"));
 
         // Create an input
-        esdui.createUIElement("Label", menu.element, "Input:");
+        esdui.createUIElement("Label", menu.element, { text: "Input:" });
         const input = esdui.createUIElement("Input", menu.element);
         input.element.addEventListener("input", () => console.log(input.element.value));
     </script>
