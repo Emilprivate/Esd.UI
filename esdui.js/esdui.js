@@ -259,6 +259,102 @@ class UISeparator extends UIElement
     }
 }
 
+class UIDropdownMenu extends UIElement 
+{
+    constructor(parent, options, attributes = {}, eventHandlers = {}) 
+    {
+        if (!Array.isArray(options)) {
+            throw new Error('The options parameter should be an array.');
+        }
+
+        super(parent, "div", { ...attributes, class: "dropdown-menu" }, eventHandlers);
+  
+        this.selectedOption = null;
+        this.optionsList = new UIMenu(this.element);
+        this.optionsList.element.style.display = "none";
+        this.optionsList.element.style.position = "absolute";
+        this.optionsList.element.style.left = "0";
+        this.optionsList.element.style.top = "100%";
+  
+        options.forEach((option) => 
+        {
+            const optionElement = new UIMenuItem(this.optionsList.element, option.text, option.attributes, option.eventHandlers);
+            optionElement.element.addEventListener("click", () => 
+            {
+                this.selectedOption = option;
+                this.optionsList.element.style.display = "none";
+                this.element.textContent = option.text;
+            });
+        });
+  
+        this.element.addEventListener("click", () => 
+        {
+            this.optionsList.element.style.display = this.optionsList.element.style.display === "none" ? "block" : "none";
+        });
+  
+        document.addEventListener("click", (event) => 
+        {
+            if (!this.element.contains(event.target)) 
+            {
+                this.optionsList.element.style.display = "none";
+            }
+        });
+    }
+  
+    style() 
+    {
+        super.style();
+        styles.dropdownMenuStyles(this.element);
+    }
+}
+
+  
+class UITabs extends UIElement 
+{
+    constructor(parent, tabs, attributes = {}, eventHandlers = {}) 
+    {
+        super(parent, "div", { ...attributes, class: "tabs" }, eventHandlers);
+
+        this.tabsList = new UIElement(this.element, "ul", { class: "tabs-list" });
+        this.tabsContent = new UIElement(this.element, "div", { class: "tabs-content" });
+
+        tabs.forEach((tab) => 
+        {
+            const tabElement = new UIElement(this.tabsList.element, "li", { class: "tab" });
+            const tabLink = new UIElement(tabElement.element, "a", { href: "#" }, { click: (event) => this.activateTab(tab) });
+            new UILabel(tabLink.element, tab.label);
+
+            const tabContent = new UIElement(this.tabsContent.element, "div", { class: "tab-content" });
+            tabContent.element.innerHTML = tab.content;
+            if (!tab.active) 
+            {
+                tabContent.element.style.display = "none";
+            }
+        });
+
+        this.activateTab(tabs.find((tab) => tab.active));
+    }
+
+    activateTab(tab) 
+    {
+        this.tabsList.element.querySelectorAll(".tab").forEach((tabElement) => 
+        {
+        tabElement.classList.toggle("active", tabElement === tab);
+        });
+
+        this.tabsContent.element.querySelectorAll(".tab-content").forEach((tabContent) => 
+        {
+        tabContent.style.display = tabContent.parentElement.classList.contains("active") ? "block" : "none";
+        });
+    }
+
+    style() 
+    {
+        super.style();
+        styles.tabsStyles(this.element);
+    }
+}
+
 export default class ESDUI 
 {
     createUIElement(type, parent, ...args) 
@@ -270,19 +366,23 @@ export default class ESDUI
       switch (type) 
       {
         case 'Menu':
-          return new UIMenu(parent, attributes, eventHandlers);
+            return new UIMenu(parent, attributes, eventHandlers);
         case 'Submenu':
-          return new UISubmenu(parent, config.text, attributes, eventHandlers);
+            return new UISubmenu(parent, config.text, attributes, eventHandlers);
         case 'MenuItem':
-          return new UIMenuItem(parent, config.text, attributes, eventHandlers);
+            return new UIMenuItem(parent, config.text, attributes, eventHandlers);
         case 'Button':
-          return new UIButton(parent, config.text, attributes, eventHandlers);
+            return new UIButton(parent, config.text, attributes, eventHandlers);
         case 'Label':
-          return new UILabel(parent, config.text, attributes, eventHandlers);
+            return new UILabel(parent, config.text, attributes, eventHandlers);
         case 'Input':
-          return new UIInput(parent, attributes, eventHandlers);
+            return new UIInput(parent, attributes, eventHandlers);
         case 'Separator':
-          return new UISeparator(parent, attributes, eventHandlers);
+            return new UISeparator(parent, attributes, eventHandlers);
+        case 'DropdownMenu':
+            return new UIDropdownMenu(parent, config.options, attributes, eventHandlers);
+        case 'Tabs':
+            return new UITabs(parent, config.tabs, attributes, eventHandlers);
         default:
           throw new Error(`Unknown UI element type: ${type}`);
       }

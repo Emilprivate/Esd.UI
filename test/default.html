@@ -50,6 +50,35 @@
         esdui.createUIElement("Label", menu.element, { text: "Input:" });
         const input = esdui.createUIElement("Input", menu.element);
         input.element.addEventListener("input", () => console.log(input.element.value));
+
+        // Create the dropdown menu
+        const options = [
+            { text: "Option 1" },
+            { text: "Option 2", attributes: { disabled: true } },
+            { text: "Option 3" },
+            { text: "Option 4" },
+        ];
+        const dropdownMenu = esdui.createUIElement("DropdownMenu", menu.element, { options });
+
+        // Create the tabs
+        const tabs = [
+            {
+                label: "Tab 1",
+                content: "This is the content of tab 1.",
+                active: true,
+            },
+            {
+                label: "Tab 2",
+                content: "This is the content of tab 2.",
+                active: false,
+            },
+            {
+                label: "Tab 3",
+                content: "This is the content of tab 3.",
+                active: false,
+            },
+        ];
+        const tabsElement = esdui.createUIElement("Tabs", menu.element, {tabs});
     </script>
 </body>
 </html>
